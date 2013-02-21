@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package meteor;
+package egyptians;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.state.StateBasedGame;
@@ -14,12 +14,12 @@ import org.newdawn.slick.SlickException;
  *
  * @author rikki & lewis
  */
-public class Meteor extends StateBasedGame {
+public class Egyptians extends StateBasedGame {
     
     public static final int STARTSTATE = 0;
     public static final int GAMESTATE = 1;
     
-    private Meteor()
+    private Egyptians()
     {
         super("Meteor");
     }
@@ -38,7 +38,7 @@ public class Meteor extends StateBasedGame {
         System.setProperty("org.lwjgl.librarypath",System.getProperty("user.home") + "/natives");
         System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
         
-        AppGameContainer app = new AppGameContainer(new Meteor());
+        AppGameContainer app = new AppGameContainer(new Egyptians());
         app.setDisplayMode(1024, 600, false);
         app.start();
     }

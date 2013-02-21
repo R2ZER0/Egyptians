@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package meteor;
+package egyptians;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -15,6 +15,11 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author rikki
  */
 public class GameState extends BasicGameState {
+    
+    private enum STATES 
+    {
+        NORMAL_STATE, PLACE_COW_STATE, PLACE_THUNDER_STATE;
+    }
     
     private int stateid = -1;
     public GameState(int sid)
