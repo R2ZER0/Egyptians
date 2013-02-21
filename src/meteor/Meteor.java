@@ -5,7 +5,7 @@
 package meteor;
 
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -14,26 +14,20 @@ import org.newdawn.slick.SlickException;
  *
  * @author rikki & lewis
  */
-public class Meteor extends BasicGame {
+public class Meteor extends StateBasedGame {
+    
+    public static final int STARTSTATE = 0;
+    public static final int GAMESTATE = 1;
     
     private Meteor()
     {
         super("Meteor");
     }
     
-    @Override public void init(GameContainer gc) throws SlickException
+    @Override public void initStatesList(GameContainer gameContainer) throws SlickException
     {
-        //init
-    }
-    
-    @Override public void update(GameContainer gc, int delta) throws SlickException
-    {
-        //update
-    }
-    
-    @Override public void render(GameContainer gc, Graphics g) throws SlickException
-    {
-        //render
+        this.addState(new StartState(STARTSTATE));
+        this.addState(new GameState(GAMESTATE));
     }
 
     /**
@@ -41,6 +35,9 @@ public class Meteor extends BasicGame {
      */
     public static void main(String[] args) throws SlickException
     {
+        System.setProperty("org.lwjgl.librarypath",System.getProperty("user.home") + "/natives");
+        System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
+        
         AppGameContainer app = new AppGameContainer(new Meteor());
         app.setDisplayMode(1024, 600, false);
         app.start();
