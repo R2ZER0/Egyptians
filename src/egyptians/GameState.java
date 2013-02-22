@@ -10,6 +10,7 @@ import java.util.List;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -65,6 +66,13 @@ public class GameState extends BasicGameState {
         Iterator<Entity> iter = entities.iterator();
         while(iter.hasNext())
             iter.next().render(g);
+    }
+    
+    private void createDude() throws SlickException
+    {
+        final Vector2f DUDE_START_POS = new Vector2f(-100, 300-Dude.DUDE_SIZE.y);
+        Dude thisguy = new Dude(DUDE_START_POS);
+        entities.add(thisguy);
     }
     
     ////// event methods //////
