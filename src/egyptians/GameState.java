@@ -10,11 +10,14 @@ import java.util.List;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,6 +29,9 @@ public class GameState extends BasicGameState {
     Image stage = null;
     Image moses = null;
     Image[] boxes = new Image[4];
+    String[] boxPics = new String[4];
+    String[] boxPicsClick = new String[4];
+    
     private List<Entity> entities = new LinkedList<Entity>();
     
     private enum STATES 
@@ -70,18 +76,70 @@ public class GameState extends BasicGameState {
             iter.next().think(delta);
         
         // TODO place here all the logic which calls the event methods below
-  
+            
     }
     
+    @Override public void keyPressed(int key, char c)
+    {
+        try {
+        if (key == Input.KEY_1)
+        {
+            this.boxes[0] = new Image("box1click.png");
+            doCow();
+        }
+          
+        if (key == Input.KEY_2)
+        {
+            this.boxes[1] = new Image("box2click.png");
+            doThunder();
+        }
+                    
+        if (key == Input.KEY_3)
+        {
+            this.boxes[2] = new Image("box3click.png");
+            doHailstorm();
+        }
+                    
+        if (key == Input.KEY_4)
+        {
+            this.boxes[3] = new Image("box4click.png");
+            doAngelOfDeath();
+        }
+        } catch (SlickException ex) {
+            Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+          
+    
+    @Override public void keyReleased(int key, char c)
+    {
+        try {
+        
+        if (key == Input.KEY_1)
+            this.boxes[0] = new Image("box1.png");
+           
+        if (key == Input.KEY_2)
+            this.boxes[1] = new Image("box2.png");
+          
+        if (key == Input.KEY_3)
+            this.boxes[2] = new Image("box3.png");
+          
+        if (key == Input.KEY_4)
+            this.boxes[3] = new Image("box4.png");
+        
+        } catch (SlickException ex) {
+             Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+            
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
         // TODO render background/moses etc here
         stage.draw(0, 0);
         moses.draw(880, 200);
         for (int i=0;i<4;i++)
-        {
             boxes[i].draw(30+i*130, 30);
-        }
+
         //render each entity
         Iterator<Entity> iter = entities.iterator();
         while(iter.hasNext())
@@ -97,7 +155,7 @@ public class GameState extends BasicGameState {
     
     ////// event methods //////
     // functions called when the user presses one of the power buttons
-    private void doCow()
+    private void doCow() throws SlickException
     {
         state = STATES.PLACE_COW_STATE;
     }
