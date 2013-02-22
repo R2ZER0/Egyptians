@@ -246,6 +246,7 @@ public class GameState extends BasicGameState
         for (int i=0;i<4;i++)
             boxes[i].draw(30+i*130, 30);
         
+        g.setColor(Color.red);
         g.drawString("Score: " + score, 190, 250);
         g.drawString("Jews: " + jews, 190, 265);
         
