@@ -217,12 +217,12 @@ public class GameState extends BasicGameState
     
     private void doHailstorm()
     {
-        
+        state = STATES.NORMAL_STATE;
     }
     
     private void doAngelOfDeath()
     {
-        
+        state = STATES.NORMAL_STATE;
     }
     
     //this is called when the user chooses where to place the cow (i.e mouse click)
