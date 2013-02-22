@@ -40,8 +40,10 @@ public class GameState extends BasicGameState
         NORMAL_STATE, PLACE_COW_STATE, PLACE_THUNDER_STATE;
     }
     
-    //private STATES state = STATES.NORMAL_STATE;
-    private STATES state = STATES.PLACE_COW_STATE;
+    private STATES state = STATES.NORMAL_STATE;
+    
+    static final int HAILTIME = 1000;
+    int hailTimeLeft = 0;   // time in ms remaining of hail
     
     private int stateid = -1;
     public GameState(int sid)
@@ -68,6 +70,8 @@ public class GameState extends BasicGameState
     Random randomGenerator = new Random();
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
+        if(hailTimeLeft > 0) hailTimeLeft -= delta;
+        
         final double DUDE_PROBABILITY_KINDA_THING = 0.2;
         // shall we create a Dude? lets ask probability!
         if(randomGenerator.nextDouble() * delta < DUDE_PROBABILITY_KINDA_THING)
@@ -183,6 +187,11 @@ public class GameState extends BasicGameState
         iter = cows.iterator();
         while(iter.hasNext())
             iter.next().render(g);
+        
+        if(hailTimeLeft > 0)
+        {
+            
+        }
     }
     
     private void createDude() throws SlickException
@@ -245,5 +254,5 @@ public class GameState extends BasicGameState
     private void cowCollide(Cow cow, Dude dude)
     {
         //cowcount or something? this is perhaps useless
-    }
+    }    
 }
