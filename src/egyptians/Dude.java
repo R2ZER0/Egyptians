@@ -18,7 +18,9 @@ public class Dude extends Entity {
     
     public static Image dudeImage = null;
     public final static Vector2f DUDE_SIZE = new Vector2f(66, 96);
-    public final static float DUDE_SPEED = 0.2f;
+    public final static float DUDE_SPEED_NORMAL = 0.2f;
+    public final static float DUDE_SPEED_SLOW = 0.05f;
+    public static float dudeSpeed = 0.2f;
     
     static
     {
@@ -40,7 +42,7 @@ public class Dude extends Entity {
     @Override public void think(int delta)
     {
         //move them forwards a bit
-        this.pos.x += delta * DUDE_SPEED;
+        this.pos.x += delta * dudeSpeed;
     }
     
 }

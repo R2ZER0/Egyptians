@@ -37,6 +37,16 @@ public class GameState extends BasicGameState
     Image thunder1 = null;
     Image thunder2 = null;
     
+    final static int POWER_COW = 0;
+    final static int POWER_LIGHTNING = 1;
+    final static int POWER_HAILSTORM = 2;
+    final static int POWER_DEATH = 3;
+    int[] power_cooldown_time = { 1000, 3000, 5000, 25000 };
+    int[] power_cooldown_time_remainaing = { 0, 0, 0, 0 };
+    
+    private boolean can(int power) { return power_cooldown_time_remainaing[power] <= 0; }
+    private void activated(int power) { power_cooldown_time_remainaing[power] = power_cooldown_time[power]; }
+    
     private enum STATES 
     {
         NORMAL_STATE, PLACE_COW_STATE, PLACE_THUNDER_STATE;
@@ -44,7 +54,7 @@ public class GameState extends BasicGameState
     
     private STATES state = STATES.NORMAL_STATE;
     
-    static final int HAILTIME = 1000;
+    static final int HAILTIME = 2000;
     int hailTimeLeft = 0;   // time in ms remaining of hail
     
     private int stateid = -1;
@@ -60,7 +70,7 @@ public class GameState extends BasicGameState
     
     @Override public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
     { 
-        gc.setMinimumLogicUpdateInterval(20);
+        gc.setMinimumLogicUpdateInterval(1000/60);
         this.stage = new Image("stage.png");
         this.moses = new Image("moses.png");
         this.boxes[0] = new Image("box1.png");
@@ -74,9 +84,19 @@ public class GameState extends BasicGameState
     Random randomGenerator = new Random();
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
-        if(hailTimeLeft > 0) hailTimeLeft -= delta;
+        if(hailTimeLeft > 0) 
+        {
+            hailTimeLeft -= delta;
+            if(hailTimeLeft <= 0)
+            {
+                Dude.dudeSpeed = Dude.DUDE_SPEED_NORMAL;
+            }
+        }
         
-        final double DUDE_PROBABILITY_KINDA_THING = 2.0;
+        for(int i = POWER_COW; i <= POWER_DEATH; ++i)
+            power_cooldown_time_remainaing[i] -= delta;
+        
+        double DUDE_PROBABILITY_KINDA_THING = 0.5;
         // shall we create a Dude? lets ask probability!
         if(randomGenerator.nextDouble() * delta < DUDE_PROBABILITY_KINDA_THING)
             createDude();
@@ -189,6 +209,15 @@ public class GameState extends BasicGameState
         moses.draw(880, 200);
         for (int i=0;i<4;i++)
             boxes[i].draw(30+i*130, 30);
+        
+        for(int i = POWER_COW; i <= POWER_DEATH; ++i)
+        {
+            if(!can(i))
+            {
+                float progress = (float)power_cooldown_time_remainaing[i] / (float)(power_cooldown_time[i]);
+                g.drawRect(30+i*130, 135, progress * 100, 5);
+            }
+        }
 
         //render each entity
         Iterator<? extends Entity> iter = dudes.iterator();
@@ -203,7 +232,7 @@ public class GameState extends BasicGameState
         {
             
         }
-        
+                
         g.drawString("CowCount: " + cows.size(), 190, 220);
         g.drawString("DudeCount: " + dudes.size(), 190, 235);
     }
@@ -231,17 +260,28 @@ public class GameState extends BasicGameState
     // functions called when the user presses one of the power buttons
     private void doCow() throws SlickException
     {
-        state = STATES.PLACE_COW_STATE;
+        if(can(POWER_COW))
+            state = STATES.PLACE_COW_STATE;
+        else
+            state = STATES.NORMAL_STATE;
     }
     
     private void doThunder()
     {
-        state = STATES.PLACE_THUNDER_STATE;
+        if(can(POWER_LIGHTNING))
+            state = STATES.PLACE_THUNDER_STATE;
+        else
+            state = STATES.NORMAL_STATE;
     }
     
     private void doHailstorm()
     {
         state = STATES.NORMAL_STATE;
+        if(can(POWER_HAILSTORM))
+        {
+            activateHail();
+            activated(POWER_HAILSTORM);
+        }
     }
     
     private void doAngelOfDeath()
@@ -255,13 +295,20 @@ public class GameState extends BasicGameState
         Cow moocow = new Cow(xpos); //cows go moo
         cows.add(moocow); //and now it gets to go join the herd
         state = STATES.NORMAL_STATE;
+        activated(POWER_COW);
     }
     
     //this is called when they choose where to shoot thunder
     private void shootThunder(float xpos, float ypos)
     {
-        
         state = STATES.NORMAL_STATE;
+        activated(POWER_LIGHTNING);
+    }
+    
+    private void activateHail()
+    {
+        hailTimeLeft = HAILTIME;
+        Dude.dudeSpeed = Dude.DUDE_SPEED_SLOW;
     }
     
     //when a cow collides with a dude
