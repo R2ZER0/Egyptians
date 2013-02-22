@@ -87,7 +87,7 @@ public class GameState extends BasicGameState {
     
     private void doThunder()
     {
-        state = STATES.PLACE_COW_STATE;
+        state = STATES.PLACE_THUNDER_STATE;
     }
     
     private void doHailstorm()
