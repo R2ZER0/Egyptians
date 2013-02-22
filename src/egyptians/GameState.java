@@ -141,6 +141,7 @@ public class GameState extends BasicGameState
                     //if we get here, it's a collission
                     cowCollide(c, d);
                     dudeIter.remove();
+                    killed();
                     }
                 }
             }    
@@ -215,7 +216,7 @@ public class GameState extends BasicGameState
             if(!can(i))
             {
                 float progress = (float)power_cooldown_time_remainaing[i] / (float)(power_cooldown_time[i]);
-                g.drawRect(30+i*130, 135, progress * 100, 5);
+                g.fillRoundRect(30+i*130, 135, progress * 100, 5, 3);
             }
         }
 
@@ -303,6 +304,28 @@ public class GameState extends BasicGameState
     {
         state = STATES.NORMAL_STATE;
         activated(POWER_LIGHTNING);
+        
+        final float LIGHTNING_RADIUS = 90f;
+        Vector2f pos = new Vector2f(xpos, ypos);
+        Vector2f dpos = new Vector2f();
+                
+        for(Iterator<Dude> iter = dudes.iterator(); iter.hasNext(); )
+        {
+            Dude d = iter.next();
+            dpos.set(d.size);
+            dpos.scale(0.5f);
+            dpos.add(d.pos);
+            if(pos.distance(dpos) < LIGHTNING_RADIUS)
+            {
+                iter.remove();
+                killed();
+            }
+        }
+    }
+    
+    private void killed()
+    {
+        //a dude has been killed (oh noes!)
     }
     
     private void activateHail()
