@@ -7,6 +7,7 @@ package egyptians;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -20,12 +21,13 @@ import java.util.Random;
  *
  * @author rikki
  */
-public class GameState extends BasicGameState {
+public class GameState extends BasicGameState
+{
     
-    //list of all cows, dudes and whatnot
     Image stage = null;
     Image moses = null;
-    private List<Entity> entities = new LinkedList<Entity>();
+    private List<Cow> cows = new LinkedList<>();
+    private List<Dude> dudes = new LinkedList<>();
     
     private enum STATES 
     {
@@ -60,9 +62,41 @@ public class GameState extends BasicGameState {
             createDude();
         
         //let all the entities think
-        Iterator<Entity> iter = entities.iterator();
+        Iterator<? extends Entity> iter = dudes.iterator();
         while(iter.hasNext())
             iter.next().think(delta);
+        
+        iter = cows.iterator();
+        while(iter.hasNext())
+            iter.next().think(delta);
+        
+        // Check if a cow is landing on a dude
+        ListIterator<Cow> cowIter = cows.listIterator();
+        while(cowIter.hasNext())
+        {
+            Cow c = cowIter.next();
+            // check if it's gone offscreen
+            if(c.pos.y > Egyptians.WINDOW_SIZE.x)
+            {
+                cowIter.remove();
+                continue;
+            }
+            
+            ListIterator<Dude> dudeIter = dudes.listIterator();
+            while(dudeIter.hasNext())
+            {
+                Dude d = dudeIter.next();
+                
+                //collision test for the cow/dude
+                if(c.pos.y + c.size.y < d.pos.y) break;
+                if(c.pos.x + c.size.x < d.pos.x) break;
+                if(c.pos.x > d.pos.x + d.size.x) break;
+                //if we get here, it's a collission
+                cowCollide(c, d);
+                dudeIter.remove();
+            }
+            
+        }
         
         // TODO place here all the logic which calls the event methods below
   
@@ -75,7 +109,11 @@ public class GameState extends BasicGameState {
         moses.draw(880, 200);
         
         //render each entity
-        Iterator<Entity> iter = entities.iterator();
+        Iterator<? extends Entity> iter = dudes.iterator();
+        while(iter.hasNext())
+            iter.next().render(g);
+        
+        iter = cows.iterator();
         while(iter.hasNext())
             iter.next().render(g);
     }
@@ -84,7 +122,7 @@ public class GameState extends BasicGameState {
     {
         final Vector2f DUDE_START_POS = new Vector2f(-100, 300);
         Dude thisguy = new Dude(DUDE_START_POS);
-        entities.add(thisguy);
+        dudes.add(thisguy);
     }
     
     ////// event methods //////
@@ -113,8 +151,7 @@ public class GameState extends BasicGameState {
     private void placeCow(float xpos) throws SlickException
     {
         Cow moocow = new Cow(xpos); //cows go moo
-        entities.add(moocow);
-        // TODO spawn the cow!
+        cows.add(moocow); //and now it gets to go join the herd
         state = STATES.NORMAL_STATE;
     }
     
@@ -123,5 +160,11 @@ public class GameState extends BasicGameState {
     {
         // TODO shoot that lightning!
         state = STATES.NORMAL_STATE;
+    }
+    
+    //when a cow collides with a dude
+    private void cowCollide(Cow cow, Dude dude)
+    {
+        
     }
 }
