@@ -28,8 +28,8 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class GameState extends BasicGameState
 {
-    int score = 0;
-    int jews = 100;
+    public static int score = 0;
+    public static int jews = 100;
     
     Image stage = null;
     Image moses = null;
@@ -50,6 +50,8 @@ public class GameState extends BasicGameState
     final static int POWER_DEATH = 3;
     int[] power_cooldown_time = { 2000, 3000, 5000, 25000 };
     int[] power_cooldown_time_remainaing = { 0, 0, 0, 0 };
+    
+    double DUDE_PROBABILITY_KINDA_THING = 0.7;
     
     static Image[][] boximages;
     
@@ -116,6 +118,8 @@ public class GameState extends BasicGameState
         Image[] thunders = { thunder1, thunder2 };
         this.thunder = new Animation(thunders, 100, true);
         this.angel = new Image("angel.png");
+        score = 0;
+        jews = 100;
     }
   
     Random randomGenerator = new Random();
@@ -146,7 +150,6 @@ public class GameState extends BasicGameState
         for(int i = POWER_COW; i <= POWER_DEATH; ++i)
             power_cooldown_time_remainaing[i] -= delta;
         
-        double DUDE_PROBABILITY_KINDA_THING = 0.7;
         // shall we create a Dude? lets ask probability!
         if(randomGenerator.nextDouble() * delta < DUDE_PROBABILITY_KINDA_THING)
             createDude();
@@ -421,6 +424,7 @@ public class GameState extends BasicGameState
     {
         //a dude has been killed (oh noes!)
         score += 10;
+        DUDE_PROBABILITY_KINDA_THING *= 1.01;
     }
     
     private void activateHail()
