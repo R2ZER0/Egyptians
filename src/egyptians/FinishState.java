@@ -4,6 +4,7 @@
  */
 package egyptians;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -49,6 +50,8 @@ public class FinishState extends BasicGameState {
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
         bg.draw();
+        g.setColor(Color.red);
+        g.drawString("Final Score: " + GameState.score, 150, 400);
     }
     
     @Override public void mousePressed(int button, int x, int y)
