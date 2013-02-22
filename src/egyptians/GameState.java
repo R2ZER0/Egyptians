@@ -14,6 +14,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import java.util.Random;
 
 /**
  *
@@ -50,8 +51,13 @@ public class GameState extends BasicGameState {
         this.moses = new Image("moses.png");
     }
   
+    Random randomGenerator = new Random();
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
+        final double DUDE_PROBABILITY_KINDA_THING = 0.2;
+        // shall we create a Dude? lets ask probability!
+        if(randomGenerator.nextDouble() * delta < DUDE_PROBABILITY_KINDA_THING)
+            createDude();
         
         //let all the entities think
         Iterator<Entity> iter = entities.iterator();
@@ -76,7 +82,7 @@ public class GameState extends BasicGameState {
     
     private void createDude() throws SlickException
     {
-        final Vector2f DUDE_START_POS = new Vector2f(-100, 300-Dude.DUDE_SIZE.y);
+        final Vector2f DUDE_START_POS = new Vector2f(-100, 300);
         Dude thisguy = new Dude(DUDE_START_POS);
         entities.add(thisguy);
     }
