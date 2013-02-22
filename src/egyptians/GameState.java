@@ -174,7 +174,6 @@ public class GameState extends BasicGameState
             
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
-        // TODO render background/moses etc here
         stage.draw(0, 0);
         moses.draw(880, 200);
         for (int i=0;i<4;i++)
@@ -193,6 +192,9 @@ public class GameState extends BasicGameState
         {
             
         }
+        
+        g.drawString("CowCount: " + cows.size(), 190, 220);
+        g.drawString("DudeCount: " + dudes.size(), 190, 235);
     }
     
     private void createDude() throws SlickException
@@ -255,5 +257,6 @@ public class GameState extends BasicGameState
     private void cowCollide(Cow cow, Dude dude)
     {
         //cowcount or something? this is perhaps useless
+        System.out.println("COLLISION!!!!!!!!");
     }    
 }
