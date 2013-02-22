@@ -53,6 +53,8 @@ public class GameState extends BasicGameState
     
     static Image[][] boximages;
     
+    static Image cowCurser, lightningCurser;
+    
     static {
         try {
             Image[][] nboximages = {
@@ -62,6 +64,9 @@ public class GameState extends BasicGameState
                 {new Image("box4.png"), new Image("box4click.png")}
             };
             boximages = nboximages;
+            
+            cowCurser = new Image("target.png");
+            lightningCurser = new Image("staff.png");
         } catch (SlickException ex) {
             Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -115,7 +120,14 @@ public class GameState extends BasicGameState
   
     Random randomGenerator = new Random();
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
-    { 
+    {
+        if(state == STATES.PLACE_COW_STATE)
+            gc.setMouseCursor(cowCurser, 12, 12);
+        else if(state == STATES.PLACE_THUNDER_STATE)
+            gc.setMouseCursor(lightningCurser, 1, 1);
+        else
+            gc.setDefaultMouseCursor();
+            
         if(hailTimeLeft > 0) 
         {
             hailTimeLeft -= delta;
