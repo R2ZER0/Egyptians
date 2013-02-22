@@ -64,7 +64,7 @@ public class Dude extends Entity {
             entityImage.draw(pos.x, pos.y, col);
         
         if(quote != null)
-            quote.draw(pos.x + DUDE_SIZE.x, pos.y);
+            quote.draw(pos.x + DUDE_SIZE.x - 20, pos.y - 85);
     }
         
     public Dude(Vector2f pos) throws SlickException
