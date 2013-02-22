@@ -56,6 +56,7 @@ public class GameState extends BasicGameState
     
     @Override public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
     { 
+        gc.setMinimumLogicUpdateInterval(20);
         this.stage = new Image("stage.png");
         this.moses = new Image("moses.png");
         this.boxes[0] = new Image("box1.png");
