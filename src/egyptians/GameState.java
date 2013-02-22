@@ -284,13 +284,13 @@ public class GameState extends BasicGameState
                 if (x > 30 && x < 130) {
                     doCow();
                     this.boxes[0] = boximages[0][1];
-                } else if (x > 130 && x < 230) {
+                } else if (x > 30+130 && x < 2*130) {
                     doThunder();
                     this.boxes[1] = boximages[1][1];
-                } else if (x > 230 && x < 330) {
+                } else if (x > 30+2*130 && x < 3*130) {
                     doHailstorm();
                     this.boxes[2] = boximages[2][1];
-                } else if (x > 330 && x < 430){ 
+                } else if (x > 30+3*130 && x < 4*130){ 
                     doAngelOfDeath();
                     this.boxes[3] = boximages[3][1];
                 }
