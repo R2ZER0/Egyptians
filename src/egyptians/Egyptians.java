@@ -21,7 +21,7 @@ public class Egyptians extends StateBasedGame {
     
     private Egyptians()
     {
-        super("Meteor");
+        super("Egyptians");
     }
     
     @Override public void initStatesList(GameContainer gameContainer) throws SlickException
