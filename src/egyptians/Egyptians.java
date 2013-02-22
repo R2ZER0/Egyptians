@@ -19,6 +19,7 @@ public class Egyptians extends StateBasedGame {
     
     public static final int STARTSTATE = 0;
     public static final int GAMESTATE = 1;
+    public static final int FINISHSTATE = 2;
     public static final Vector2f WINDOW_SIZE = new Vector2f(1024, 600);
     
     private Egyptians()
@@ -30,6 +31,7 @@ public class Egyptians extends StateBasedGame {
     {
         this.addState(new StartState(STARTSTATE));
         this.addState(new GameState(GAMESTATE));
+        this.addState(new FinishState(FINISHSTATE));
     }
 
     /**
