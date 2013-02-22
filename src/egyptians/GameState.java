@@ -72,7 +72,7 @@ public class GameState extends BasicGameState
     
     static final int HAILTIME = 2000;
     static public int hailTimeLeft = 0;   // time in ms remaining of hail
-    
+
     private int stateid = -1;
     public GameState(int sid)
     {
@@ -99,7 +99,7 @@ public class GameState extends BasicGameState
   
     Random randomGenerator = new Random();
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
-    {
+    { 
         if(hailTimeLeft > 0) 
         {
             hailTimeLeft -= delta;
@@ -222,6 +222,9 @@ public class GameState extends BasicGameState
         for (int i=0;i<4;i++)
             boxes[i].draw(30+i*130, 30);
         
+        g.drawString("CowCount: " + cows.size(), 190, 220);
+        g.drawString("DudeCount: " + dudes.size(), 190, 235);
+        
         for(int i = POWER_COW; i <= POWER_DEATH; ++i)
         {
             if(!can(i))
@@ -245,8 +248,6 @@ public class GameState extends BasicGameState
             
         }
                 
-        g.drawString("CowCount: " + cows.size(), 190, 220);
-        g.drawString("DudeCount: " + dudes.size(), 190, 235);
     }
     
     private void createDude() throws SlickException
