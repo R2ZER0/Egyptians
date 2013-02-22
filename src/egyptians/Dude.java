@@ -6,10 +6,12 @@ package egyptians;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import java.util.Random;
+import org.newdawn.slick.Graphics;
 
 /**
  *
@@ -23,6 +25,8 @@ public class Dude extends Entity {
     public final static float DUDE_SPEED_SLOW = 0.05f;
     public static float dudeSpeed = 0.2f;
     public float speedmod;
+    public Color col = Color.white;
+    
     
     static
     {
@@ -36,6 +40,17 @@ public class Dude extends Entity {
         }
     }
     
+    @Override public void render(Graphics g)
+    {
+        if (GameState.hailTimeLeft > 0)
+            col = Color.cyan;
+        else
+            col = Color.white;
+        
+        if(entityImage != null)
+            entityImage.draw(pos.x, pos.y, col);
+    }
+        
     public Dude(Vector2f pos) throws SlickException
     {
         super(dudeImage, pos, DUDE_SIZE);

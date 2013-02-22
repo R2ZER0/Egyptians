@@ -71,7 +71,7 @@ public class GameState extends BasicGameState
     private STATES state = STATES.NORMAL_STATE;
     
     static final int HAILTIME = 2000;
-    int hailTimeLeft = 0;   // time in ms remaining of hail
+    static public int hailTimeLeft = 0;   // time in ms remaining of hail
     
     private int stateid = -1;
     public GameState(int sid)
