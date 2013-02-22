@@ -17,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class FinishState extends BasicGameState {
     
+    private int stateid;
     public FinishState(int sid)
     {
         stateid = sid;
