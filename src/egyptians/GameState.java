@@ -50,9 +50,9 @@ public class GameState extends BasicGameState
         try {
             Image[][] nboximages = {
                 {new Image("box1.png"), new Image("box1click.png")},
-                {new Image("box1.png"), new Image("box1click.png")},
-                {new Image("box1.png"), new Image("box1click.png")},
-                {new Image("box1.png"), new Image("box1click.png")}
+                {new Image("box2.png"), new Image("box2click.png")},
+                {new Image("box3.png"), new Image("box3click.png")},
+                {new Image("box4.png"), new Image("box4click.png")}
             };
             boximages = nboximages;
         } catch (SlickException ex) {
