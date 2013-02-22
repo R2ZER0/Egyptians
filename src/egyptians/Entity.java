@@ -4,8 +4,10 @@
  */
 package egyptians;
 
-import org.lwjgl.util.vector.Vector2f;
+
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  *
@@ -16,6 +18,14 @@ abstract public class Entity {
     public Image entityImage = null;
     
     public Vector2f pos, size;
+
+    public abstract void think(int delta);
+    
+    public void render(Graphics g)
+    {
+        if(entityImage != null)
+            entityImage.draw(pos.x, pos.y);
+    }
     
     public Entity(Image img, Vector2f pos, Vector2f size)
     {
