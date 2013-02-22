@@ -23,6 +23,7 @@ public class GameState extends BasicGameState {
     
     //list of all cows, dudes and whatnot
     Image stage = null;
+    Image moses = null;
     private List<Entity> entities = new LinkedList<Entity>();
     
     private enum STATES 
@@ -46,6 +47,7 @@ public class GameState extends BasicGameState {
     @Override public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
     { 
         this.stage = new Image("stage.png");
+        this.moses = new Image("moses.png");
     }
   
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
@@ -64,6 +66,7 @@ public class GameState extends BasicGameState {
     {
         // TODO render background/moses etc here
         stage.draw(0, 0);
+        moses.draw(880, 200);
         
         //render each entity
         Iterator<Entity> iter = entities.iterator();
