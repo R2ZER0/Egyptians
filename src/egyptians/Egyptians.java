@@ -9,6 +9,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  *
@@ -18,6 +19,7 @@ public class Egyptians extends StateBasedGame {
     
     public static final int STARTSTATE = 0;
     public static final int GAMESTATE = 1;
+    public static final Vector2f WINDOW_SIZE = new Vector2f(1024, 600);
     
     private Egyptians()
     {
