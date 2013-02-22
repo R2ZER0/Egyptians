@@ -16,6 +16,8 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,7 +39,8 @@ public class GameState extends BasicGameState
         NORMAL_STATE, PLACE_COW_STATE, PLACE_THUNDER_STATE;
     }
     
-    private STATES state = STATES.NORMAL_STATE;
+    //private STATES state = STATES.NORMAL_STATE;
+    private STATES state = STATES.PLACE_COW_STATE;
     
     private int stateid = -1;
     public GameState(int sid)
@@ -135,6 +138,18 @@ public class GameState extends BasicGameState
         dudes.add(thisguy);
     }
     
+    @Override public void mousePressed(int button, int x, int y)
+    {
+        try {
+            if(state == STATES.PLACE_COW_STATE)
+                placeCow(x);
+            else if(state == STATES.PLACE_THUNDER_STATE)
+                shootThunder(x);
+        } catch (SlickException ex) {
+            Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
     ////// event methods //////
     // functions called when the user presses one of the power buttons
     private void doCow()
@@ -158,7 +173,7 @@ public class GameState extends BasicGameState
     }
     
     //this is called when the user chooses where to place the cow (i.e mouse click)
-    private void placeCow(float xpos) throws SlickException
+    private void placeCow(int xpos) throws SlickException
     {
         Cow moocow = new Cow(xpos); //cows go moo
         cows.add(moocow); //and now it gets to go join the herd
@@ -175,6 +190,6 @@ public class GameState extends BasicGameState
     //when a cow collides with a dude
     private void cowCollide(Cow cow, Dude dude)
     {
-        
+        //cowcount or something? this is perhaps useless
     }
 }
