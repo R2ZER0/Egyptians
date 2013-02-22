@@ -19,7 +19,8 @@ import org.newdawn.slick.Graphics;
  */
 public class Dude extends Entity {
     
-    public static Image dudeImage = null;
+    public static Image dudeImage1 = null;
+    public static Image dudeImage2 = null;
     public final static Vector2f DUDE_SIZE = new Vector2f(66, 96);
     public final static float DUDE_SPEED_NORMAL = 0.2f;
     public final static float DUDE_SPEED_SLOW = 0.05f;
@@ -32,10 +33,11 @@ public class Dude extends Entity {
     
     static
     {
-        if(dudeImage == null)
+        if(dudeImage1 == null || dudeImage2 == null)
         {
             try {
-                dudeImage = new Image("dude.png");
+                dudeImage1 = new Image("dude.png");
+                dudeImage2 = new Image("dude2.png");
                 
                 Image[] qimgs = {
                     new Image("quote1.png"),
@@ -64,12 +66,12 @@ public class Dude extends Entity {
             entityImage.draw(pos.x, pos.y, col);
         
         if(quote != null)
-            quote.draw(pos.x + DUDE_SIZE.x, pos.y);
+            quote.draw(pos.x + DUDE_SIZE.x - 20, pos.y - 85);
     }
         
     public Dude(Vector2f pos) throws SlickException
     {
-        super(dudeImage, pos, DUDE_SIZE);
+        super((StrictMath.random() < 0.5) ? dudeImage1 : dudeImage2, pos, DUDE_SIZE);
         speedmod = (float) (StrictMath.random()*0.5 + 0.5);
         
         if(StrictMath.random() < 0.05)
