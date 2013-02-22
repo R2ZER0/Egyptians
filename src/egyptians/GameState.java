@@ -25,6 +25,7 @@ public class GameState extends BasicGameState {
     //list of all cows, dudes and whatnot
     Image stage = null;
     Image moses = null;
+    Image[] boxes = new Image[4];
     private List<Entity> entities = new LinkedList<Entity>();
     
     private enum STATES 
@@ -49,6 +50,10 @@ public class GameState extends BasicGameState {
     { 
         this.stage = new Image("stage.png");
         this.moses = new Image("moses.png");
+        this.boxes[0] = new Image("box1.png");
+        this.boxes[1] = new Image("box2.png");
+        this.boxes[2] = new Image("box3.png");
+        this.boxes[3] = new Image("box4.png");
     }
   
     Random randomGenerator = new Random();
@@ -73,7 +78,10 @@ public class GameState extends BasicGameState {
         // TODO render background/moses etc here
         stage.draw(0, 0);
         moses.draw(880, 200);
-        
+        for (int i=0;i<4;i++)
+        {
+            boxes[i].draw(30+i*130, 30);
+        }
         //render each entity
         Iterator<Entity> iter = entities.iterator();
         while(iter.hasNext())
