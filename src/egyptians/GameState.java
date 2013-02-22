@@ -281,7 +281,7 @@ public class GameState extends BasicGameState
         if(angelTimeLeft > 0)
         {
             angelColour.a = ((float) angelTimeLeft / (float) ANGELTIME);
-            angel.draw(300, 0, angelColour);
+            angel.draw(362, 20, angelColour);
         }
     }
     
