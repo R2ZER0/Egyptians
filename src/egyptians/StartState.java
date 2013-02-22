@@ -47,12 +47,12 @@ public class StartState extends BasicGameState {
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
         start.draw(0, 0);
-        button.draw(312, 350);
+        button.draw(62, 350);
     }
     
     @Override public void mousePressed(int button, int x, int y)
     {
-        if (y < 550 && y > 350 && x < 712 && x > 312)
+        if (y < 550 && y > 350 && x < 462 && x > 62)
             moveOn = true;
     }
 }
