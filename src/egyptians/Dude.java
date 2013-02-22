@@ -27,6 +27,8 @@ public class Dude extends Entity {
     public float speedmod;
     public Color col = Color.white;
     
+    static Image[] quotes;
+    Image quote = null;
     
     static
     {
@@ -34,7 +36,18 @@ public class Dude extends Entity {
         {
             try {
                 dudeImage = new Image("dude.png");
-            } catch (SlickException ex) {
+                
+                Image[] qimgs = {
+                    new Image("quote1.png"),
+                    new Image("quote2.png"),
+                    new Image("quote3.png"),
+                    new Image("quote4.png"),
+                    new Image("quote5.png")
+                };
+                
+                quotes = qimgs;
+            }
+            catch (SlickException ex) {
                 Logger.getLogger(Dude.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -46,15 +59,21 @@ public class Dude extends Entity {
             col = Color.cyan;
         else
             col = Color.white;
-        
+               
         if(entityImage != null)
             entityImage.draw(pos.x, pos.y, col);
+        
+        if(quote != null)
+            quote.draw(pos.x + DUDE_SIZE.x, pos.y);
     }
         
     public Dude(Vector2f pos) throws SlickException
     {
         super(dudeImage, pos, DUDE_SIZE);
         speedmod = (float) (StrictMath.random()*0.5 + 0.5);
+        
+        if(StrictMath.random() < 0.05)
+            quote = quotes[(int) (StrictMath.random() * 5.0)];
     }
     
     @Override public void think(int delta)

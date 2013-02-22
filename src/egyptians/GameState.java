@@ -123,7 +123,7 @@ public class GameState extends BasicGameState
         for(int i = POWER_COW; i <= POWER_DEATH; ++i)
             power_cooldown_time_remainaing[i] -= delta;
         
-        double DUDE_PROBABILITY_KINDA_THING = 0.5;
+        double DUDE_PROBABILITY_KINDA_THING = 0.7;
         // shall we create a Dude? lets ask probability!
         if(randomGenerator.nextDouble() * delta < DUDE_PROBABILITY_KINDA_THING)
             createDude();
