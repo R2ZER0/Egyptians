@@ -15,10 +15,13 @@ import org.newdawn.slick.geom.Vector2f;
 public class Cow extends Entity {
     
     public final static Vector2f COW_SIZE = new Vector2f(100, 60);
+    public final static double COW_GRAVITY = 0.4;
 
     @Override public void think(int delta)
     {
         // cows don't think, stupid!
+        // but they do fall down
+        pos.y -= COW_GRAVITY * delta;
     }
     
     public Cow(float posx) throws SlickException
