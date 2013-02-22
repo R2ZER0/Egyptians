@@ -15,7 +15,7 @@ import org.newdawn.slick.geom.Vector2f;
 public class Dude extends Entity {
     
     public final static Vector2f DUDE_SIZE = new Vector2f(50, 250);
-    public final static float DUDE_SPEED = 0.5f;
+    public final static float DUDE_SPEED = 0.2f;
     
     public Dude(Vector2f pos) throws SlickException
     {
