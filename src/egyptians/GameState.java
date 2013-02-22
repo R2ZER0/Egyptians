@@ -107,6 +107,7 @@ public class GameState extends BasicGameState
                 if(c.pos.y + c.size.y < d.pos.y) break;
                 if(c.pos.x + c.size.x < d.pos.x) break;
                 if(c.pos.x > d.pos.x + d.size.x) break;
+                if(d.pos.y + d.size.y < c.pos.y) break;
                 //if we get here, it's a collission
                 cowCollide(c, d);
                 dudeIter.remove();
