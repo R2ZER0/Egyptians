@@ -27,6 +27,8 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class GameState extends BasicGameState
 {
+    int score = 0;
+    int jews = 100;
     
     Image stage = null;
     Image moses = null;
@@ -137,6 +139,8 @@ public class GameState extends BasicGameState
             if(d.pos.x > Egyptians.WINDOW_SIZE.x)
             {
                 iterd.remove();
+                jews--;
+                
             }
             else d.think(delta);
         }
@@ -233,8 +237,8 @@ public class GameState extends BasicGameState
         for (int i=0;i<4;i++)
             boxes[i].draw(30+i*130, 30);
         
-        g.drawString("CowCount: " + cows.size(), 190, 220);
-        g.drawString("DudeCount: " + dudes.size(), 190, 235);
+        g.drawString("Score: " + score, 190, 250);
+        g.drawString("Jews: " + jews, 190, 265);
         
         for(int i = POWER_COW; i <= POWER_DEATH; ++i)
         {
@@ -385,6 +389,7 @@ public class GameState extends BasicGameState
     private void killed()
     {
         //a dude has been killed (oh noes!)
+        score += 10;
     }
     
     private void activateHail()
@@ -396,6 +401,6 @@ public class GameState extends BasicGameState
     //when a cow collides with a dude
     private void cowCollide(Cow cow, Dude dude)
     {
-        //cowcount or something? this is perhaps useless
+        
     }    
 }
