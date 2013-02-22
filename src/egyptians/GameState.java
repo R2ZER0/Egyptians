@@ -57,23 +57,6 @@ public class GameState extends BasicGameState
     
     static Image cowCurser, lightningCurser;
     
-    static {
-        try {
-            Image[][] nboximages = {
-                {new Image("box1.png"), new Image("box1click.png")},
-                {new Image("box2.png"), new Image("box2click.png")},
-                {new Image("box3.png"), new Image("box3click.png")},
-                {new Image("box4.png"), new Image("box4click.png")}
-            };
-            boximages = nboximages;
-            
-            cowCurser = new Image("target.png");
-            lightningCurser = new Image("staff.png");
-        } catch (SlickException ex) {
-            Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     private boolean can(int power) { return power_cooldown_time_remainaing[power] <= 0; }
     private void activated(int power) { power_cooldown_time_remainaing[power] = power_cooldown_time[power]; }
     
@@ -106,6 +89,17 @@ public class GameState extends BasicGameState
     
     @Override public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
     { 
+        Image[][] nboximages = {
+            {new Image("box1.png"), new Image("box1click.png")},
+            {new Image("box2.png"), new Image("box2click.png")},
+            {new Image("box3.png"), new Image("box3click.png")},
+            {new Image("box4.png"), new Image("box4click.png")}
+        };
+        boximages = nboximages;
+
+        cowCurser = new Image("target.png");
+        lightningCurser = new Image("staff.png");
+   
         gc.setMinimumLogicUpdateInterval(1000/60);
         this.stage = new Image("stage.png");
         this.moses = new Image("moses.png");
@@ -120,6 +114,8 @@ public class GameState extends BasicGameState
         this.angel = new Image("angel.png");
         score = 0;
         jews = 100;
+        cows = new LinkedList<>();
+        dudes = new LinkedList<>();
     }
   
     Random randomGenerator = new Random();
@@ -202,7 +198,11 @@ public class GameState extends BasicGameState
             }    
         }
         
-        if(jews < 0) sbg.enterState(Egyptians.FINISHSTATE);
+        if(jews < 0)
+        {
+            sbg.enterState(Egyptians.FINISHSTATE);
+            init(gc, sbg);
+        }
             
     }
     

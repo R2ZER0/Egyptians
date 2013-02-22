@@ -39,7 +39,11 @@ public class FinishState extends BasicGameState {
   
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
-        if(goBack) sbg.enterState(Egyptians.STARTSTATE);
+        if(goBack)
+        {
+            sbg.enterState(Egyptians.STARTSTATE);
+            init(gc, sbg);
+        }
     }
     
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException

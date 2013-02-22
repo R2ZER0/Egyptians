@@ -36,12 +36,16 @@ public class StartState extends BasicGameState {
     {
         this.start = new Image("start.png");
         this.button = new Image("button.png");
+        moveOn = false;
     }
   
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
         if (moveOn)
+        {
             sbg.enterState(Egyptians.GAMESTATE);
+            init(gc, sbg);
+        }
     }
     
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
