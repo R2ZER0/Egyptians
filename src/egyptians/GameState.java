@@ -8,6 +8,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -16,9 +19,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -34,6 +34,8 @@ public class GameState extends BasicGameState
     private List<Dude> dudes = new LinkedList<>();
 
     Image[] boxes = new Image[4];
+    Image thunder1 = null;
+    Image thunder2 = null;
     
     private enum STATES 
     {
@@ -65,6 +67,8 @@ public class GameState extends BasicGameState
         this.boxes[1] = new Image("box2.png");
         this.boxes[2] = new Image("box3.png");
         this.boxes[3] = new Image("box4.png");
+        this.thunder1 = new Image("thunder1.png");
+        this.thunder2 = new Image("thunder2.png");
     }
   
     Random randomGenerator = new Random();
@@ -108,7 +112,7 @@ public class GameState extends BasicGameState
                 if(c.pos.x + c.size.x < d.pos.x) break;
                 if(c.pos.x > d.pos.x + d.size.x) break;
                 if(d.pos.y + d.size.y < c.pos.y) break;
-                //if we get here, it's a collission
+                //if we get here, it's a cowllision
                 cowCollide(c, d);
                 dudeIter.remove();
             }
@@ -208,7 +212,7 @@ public class GameState extends BasicGameState
             if(state == STATES.PLACE_COW_STATE)
                 placeCow(x);
             else if(state == STATES.PLACE_THUNDER_STATE)
-                shootThunder(x);
+                shootThunder(x, y);
         } catch (SlickException ex) {
             Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -245,9 +249,9 @@ public class GameState extends BasicGameState
     }
     
     //this is called when they choose where to shoot thunder
-    private void shootThunder(float xpos)
+    private void shootThunder(float xpos, float ypos)
     {
-        // TODO shoot that lightning!
+        
         state = STATES.NORMAL_STATE;
     }
     
