@@ -339,6 +339,11 @@ public class GameState extends BasicGameState
     private void doAngelOfDeath()
     {
         state = STATES.NORMAL_STATE;
+        if(can(POWER_DEATH))
+        {
+            dudes.clear();
+            activated(POWER_DEATH);
+        }
     }
     
     //this is called when the user chooses where to place the cow (i.e mouse click)
