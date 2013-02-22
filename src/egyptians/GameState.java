@@ -29,8 +29,6 @@ public class GameState extends BasicGameState {
     Image stage = null;
     Image moses = null;
     Image[] boxes = new Image[4];
-    String[] boxPics = new String[4];
-    String[] boxPicsClick = new String[4];
     
     private List<Entity> entities = new LinkedList<Entity>();
     
