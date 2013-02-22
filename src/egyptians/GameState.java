@@ -44,6 +44,22 @@ public class GameState extends BasicGameState
     int[] power_cooldown_time = { 1000, 3000, 5000, 25000 };
     int[] power_cooldown_time_remainaing = { 0, 0, 0, 0 };
     
+    static Image[][] boximages;
+    
+    static {
+        try {
+            Image[][] nboximages = {
+                {new Image("box1.png"), new Image("box1click.png")},
+                {new Image("box1.png"), new Image("box1click.png")},
+                {new Image("box1.png"), new Image("box1click.png")},
+                {new Image("box1.png"), new Image("box1click.png")}
+            };
+            boximages = nboximages;
+        } catch (SlickException ex) {
+            Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private boolean can(int power) { return power_cooldown_time_remainaing[power] <= 0; }
     private void activated(int power) { power_cooldown_time_remainaing[power] = power_cooldown_time[power]; }
     
@@ -73,10 +89,10 @@ public class GameState extends BasicGameState
         gc.setMinimumLogicUpdateInterval(1000/60);
         this.stage = new Image("stage.png");
         this.moses = new Image("moses.png");
-        this.boxes[0] = new Image("box1.png");
-        this.boxes[1] = new Image("box2.png");
-        this.boxes[2] = new Image("box3.png");
-        this.boxes[3] = new Image("box4.png");
+        this.boxes[0] = boximages[0][0];
+        this.boxes[1] = boximages[1][0];
+        this.boxes[2] = boximages[2][0];
+        this.boxes[3] = boximages[3][0];
         this.thunder1 = new Image("thunder1.png");
         this.thunder2 = new Image("thunder2.png");
     }
@@ -156,25 +172,25 @@ public class GameState extends BasicGameState
         try {
         if (key == Input.KEY_1)
         {
-            this.boxes[0] = new Image("box1click.png");
+            this.boxes[0] = boximages[0][1];
             doCow();
         }
           
         if (key == Input.KEY_2)
         {
-            this.boxes[1] = new Image("box2click.png");
+            this.boxes[1] = boximages[1][1];
             doThunder();
         }
                     
         if (key == Input.KEY_3)
         {
-            this.boxes[2] = new Image("box3click.png");
+            this.boxes[2] = boximages[2][1];
             doHailstorm();
         }
                     
         if (key == Input.KEY_4)
         {
-            this.boxes[3] = new Image("box4click.png");
+            this.boxes[3] = boximages[3][1];
             doAngelOfDeath();
         }
         } catch (SlickException ex) {
@@ -185,23 +201,18 @@ public class GameState extends BasicGameState
     
     @Override public void keyReleased(int key, char c)
     {
-        try {
         
         if (key == Input.KEY_1)
-            this.boxes[0] = new Image("box1.png");
+            this.boxes[0] = boximages[0][0];
            
-        if (key == Input.KEY_2)
-            this.boxes[1] = new Image("box2.png");
+        else if (key == Input.KEY_2)
+            this.boxes[1] = boximages[1][0];
           
-        if (key == Input.KEY_3)
-            this.boxes[2] = new Image("box3.png");
+        else if (key == Input.KEY_3)
+            this.boxes[2] = boximages[2][0];
           
-        if (key == Input.KEY_4)
-            this.boxes[3] = new Image("box4.png");
-        
-        } catch (SlickException ex) {
-             Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        else if (key == Input.KEY_4)
+            this.boxes[3] = boximages[3][0];
     }
             
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
@@ -254,18 +265,31 @@ public class GameState extends BasicGameState
                 shootThunder(x, y);
             else if (y > 30 && y < 130)
             {
-                if (x > 30 && x < 130)
+                if (x > 30 && x < 130) {
                     doCow();
-                else if (x > 130 && x < 230)
+                    this.boxes[0] = boximages[0][1];
+                } else if (x > 130 && x < 230) {
                     doThunder();
-                else if (x > 230 && x < 330)
+                    this.boxes[1] = boximages[1][1];
+                } else if (x > 230 && x < 330) {
                     doHailstorm();
-                else if (x > 330 && x < 430)
+                    this.boxes[2] = boximages[2][1];
+                } else if (x > 330 && x < 430){ 
                     doAngelOfDeath();
+                    this.boxes[3] = boximages[3][1];
+                }
             }       
         } catch (SlickException ex) {
             Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @Override public void mouseReleased(int button, int x, int y)
+    {
+        this.boxes[0] = boximages[0][0];
+        this.boxes[1] = boximages[1][0];
+        this.boxes[2] = boximages[2][0];
+        this.boxes[3] = boximages[3][0];
     }
         
     ////// event methods //////
