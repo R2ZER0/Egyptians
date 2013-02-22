@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -41,6 +42,7 @@ public class GameState extends BasicGameState
     Image thunder2 = null;
     Animation thunder;
     Vector2f thunderPos;
+    Image angel;
     
     final static int POWER_COW = 0;
     final static int POWER_LIGHTNING = 1;
@@ -81,6 +83,9 @@ public class GameState extends BasicGameState
     static final int LIGHTNINGTIME = 500;
     static public int lightningTimeLeft = 0;
     
+    static final int ANGELTIME  = 1000;
+    static public int angelTimeLeft = 0;
+    
     private int stateid = -1;
     public GameState(int sid)
     {
@@ -105,6 +110,7 @@ public class GameState extends BasicGameState
         this.thunder2 = new Image("thunder2.png");
         Image[] thunders = { thunder1, thunder2 };
         this.thunder = new Animation(thunders, 100, true);
+        this.angel = new Image("angel.png");
     }
   
     Random randomGenerator = new Random();
@@ -121,6 +127,9 @@ public class GameState extends BasicGameState
         
         if(lightningTimeLeft > 0)
             lightningTimeLeft -= delta;
+        
+        if(angelTimeLeft > 0)
+            angelTimeLeft -= delta;
         
         for(int i = POWER_COW; i <= POWER_DEATH; ++i)
             power_cooldown_time_remainaing[i] -= delta;
@@ -267,7 +276,15 @@ public class GameState extends BasicGameState
         {
             thunder.draw(thunderPos.x, thunderPos.y);
         }
+        
+        if(angelTimeLeft > 0)
+        {
+            angelColour.a = ((float) angelTimeLeft / (float) ANGELTIME);
+            angel.draw(300, 0, angelColour);
+        }
     }
+    
+    Color angelColour = new Color(255, 255, 255);
     
     private void createDude() throws SlickException
     {
@@ -346,6 +363,7 @@ public class GameState extends BasicGameState
         if(can(POWER_DEATH))
         {
             dudes.clear();
+            angelTimeLeft = ANGELTIME;
             activated(POWER_DEATH);
         }
     }
