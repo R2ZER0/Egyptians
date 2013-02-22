@@ -252,6 +252,17 @@ public class GameState extends BasicGameState
                 placeCow(x);
             else if(state == STATES.PLACE_THUNDER_STATE)
                 shootThunder(x, y);
+            else if (y > 30 && y < 130)
+            {
+                if (x > 30 && x < 130)
+                    doCow();
+                else if (x > 130 && x < 230)
+                    doThunder();
+                else if (x > 230 && x < 330)
+                    doHailstorm();
+                else if (x > 330 && x < 430)
+                    doAngelOfDeath();
+            }       
         } catch (SlickException ex) {
             Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -305,7 +316,7 @@ public class GameState extends BasicGameState
         state = STATES.NORMAL_STATE;
         activated(POWER_LIGHTNING);
         
-        final float LIGHTNING_RADIUS = 90f;
+        final float LIGHTNING_RADIUS = 120f;
         Vector2f pos = new Vector2f(xpos, ypos);
         Vector2f dpos = new Vector2f();
                 
