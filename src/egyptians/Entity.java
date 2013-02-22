@@ -11,13 +11,13 @@ import org.newdawn.slick.Image;
  *
  * @author rikki
  */
-abstract public class ViewableEntity {
+abstract public class Entity {
     
     public Image entityImage = null;
     
     public Vector2f pos, size;
     
-    public ViewableEntity(Image img, Vector2f pos, Vector2f size)
+    public Entity(Image img, Vector2f pos, Vector2f size)
     {
         this.entityImage = img;
         this.pos = pos;
