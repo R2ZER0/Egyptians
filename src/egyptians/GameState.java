@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
@@ -21,6 +22,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameState extends BasicGameState {
     
     //list of all cows, dudes and whatnot
+    Image stage = null;
     private List<Entity> entities = new LinkedList<Entity>();
     
     private enum STATES 
@@ -42,8 +44,8 @@ public class GameState extends BasicGameState {
     }
     
     @Override public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
-    {
-  
+    { 
+        this.stage = new Image("stage.png");
     }
   
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
@@ -61,6 +63,7 @@ public class GameState extends BasicGameState {
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
         // TODO render background/moses etc here
+        stage.draw(0, 0);
         
         //render each entity
         Iterator<Entity> iter = entities.iterator();
