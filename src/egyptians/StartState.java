@@ -34,7 +34,7 @@ public class StartState extends BasicGameState {
   
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
-  
+        sbg.enterState(Egyptians.GAMESTATE);
     }
     
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException

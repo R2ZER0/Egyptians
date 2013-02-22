@@ -27,6 +27,8 @@ public class GameState extends BasicGameState {
         NORMAL_STATE, PLACE_COW_STATE, PLACE_THUNDER_STATE;
     }
     
+    private STATES state = STATES.NORMAL_STATE;
+    
     private int stateid = -1;
     public GameState(int sid)
     {
@@ -51,16 +53,55 @@ public class GameState extends BasicGameState {
         while(iter.hasNext())
             iter.next().think(delta);
         
+        // TODO place here all the logic which calls the event methods below
   
     }
     
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
-        // TODO render background/moses etc
+        // TODO render background/moses etc here
         
         //render each entity
         Iterator<Entity> iter = entities.iterator();
         while(iter.hasNext())
             iter.next().render(g);
+    }
+    
+    ////// event methods //////
+    // functions called when the user presses one of the power buttons
+    private void doCow()
+    {
+        state = STATES.PLACE_COW_STATE;
+    }
+    
+    private void doThunder()
+    {
+        state = STATES.PLACE_COW_STATE;
+    }
+    
+    private void doHailstorm()
+    {
+        
+    }
+    
+    private void doAngelOfDeath()
+    {
+        
+    }
+    
+    //this is called when the user chooses where to place the cow (i.e mouse click)
+    private void placeCow(float xpos) throws SlickException
+    {
+        Cow moocow = new Cow(xpos); //cows go moo
+        entities.add(moocow);
+        // TODO spawn the cow!
+        state = STATES.NORMAL_STATE;
+    }
+    
+    //this is called when they choose where to shoot thunder
+    private void shootThunder(float xpos)
+    {
+        // TODO shoot that lightning!
+        state = STATES.NORMAL_STATE;
     }
 }
