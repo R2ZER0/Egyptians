@@ -72,7 +72,7 @@ public class GameState extends BasicGameState
     {
         if(hailTimeLeft > 0) hailTimeLeft -= delta;
         
-        final double DUDE_PROBABILITY_KINDA_THING = 0.4;
+        final double DUDE_PROBABILITY_KINDA_THING = 2.0;
         // shall we create a Dude? lets ask probability!
         if(randomGenerator.nextDouble() * delta < DUDE_PROBABILITY_KINDA_THING)
             createDude();
@@ -197,7 +197,7 @@ public class GameState extends BasicGameState
     
     private void createDude() throws SlickException
     {
-        final Vector2f DUDE_START_POS = new Vector2f(-100, 300);
+        final Vector2f DUDE_START_POS = new Vector2f(-100, 250 + randomGenerator.nextInt(250));
         Dude thisguy = new Dude(DUDE_START_POS);
         dudes.add(thisguy);
     }
