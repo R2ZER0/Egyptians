@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
+import java.util.Random;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Dude extends Entity {
     public final static float DUDE_SPEED_NORMAL = 0.2f;
     public final static float DUDE_SPEED_SLOW = 0.05f;
     public static float dudeSpeed = 0.2f;
+    public float speedmod;
     
     static
     {
@@ -37,12 +39,13 @@ public class Dude extends Entity {
     public Dude(Vector2f pos) throws SlickException
     {
         super(dudeImage, pos, DUDE_SIZE);
+        speedmod = (float) (StrictMath.random()*0.5 + 0.5);
     }
     
     @Override public void think(int delta)
     {
         //move them forwards a bit
-        this.pos.x += delta * dudeSpeed;
+        this.pos.x += delta * dudeSpeed * speedmod;
     }
     
 }
