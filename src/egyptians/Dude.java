@@ -22,7 +22,7 @@ public class Dude extends Entity {
         super(new Image("dude.png"), pos, DUDE_SIZE);
     }
     
-    public void think(int delta)
+    @Override public void think(int delta)
     {
         //move them forwards a bit
         this.pos.x += delta * DUDE_SPEED;
