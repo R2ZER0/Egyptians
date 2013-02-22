@@ -107,7 +107,6 @@ public class GameState extends BasicGameState
             {
                 c.think(delta);
                 
-
                 Iterator<Dude> dudeIter = dudes.iterator();
                 while(dudeIter.hasNext())
                 {
@@ -125,7 +124,6 @@ public class GameState extends BasicGameState
                     }
                 }
             }    
->>>>>>> c96a59f02477d0fb3f929957be558d8e0cfa3ceb
         }
         
         // TODO place here all the logic which calls the event methods below
