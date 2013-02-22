@@ -82,41 +82,50 @@ public class GameState extends BasicGameState
             createDude();
         
         //let all the entities think
-        Iterator<? extends Entity> iter = dudes.iterator();
-        while(iter.hasNext())
-            iter.next().think(delta);
-        
-        iter = cows.iterator();
-        while(iter.hasNext())
-            iter.next().think(delta);
-        
-        // Check if a cow is landing on a dude
-        ListIterator<Cow> cowIter = cows.listIterator();
-        while(cowIter.hasNext())
+        Iterator<Dude> iterd = dudes.iterator();
+        while(iterd.hasNext())
         {
-            Cow c = cowIter.next();
+            Dude d = iterd.next();
             // check if it's gone offscreen
-            if(c.pos.y > Egyptians.WINDOW_SIZE.x)
+            if(d.pos.x > Egyptians.WINDOW_SIZE.x)
             {
-                cowIter.remove();
-                continue;
+                iterd.remove();
             }
-            
-            ListIterator<Dude> dudeIter = dudes.listIterator();
-            while(dudeIter.hasNext())
+            else d.think(delta);
+        }
+        
+        Iterator<Cow> iterc = cows.iterator();
+        while(iterc.hasNext())
+        {
+            Cow c = iterc.next();
+            // check if it's gone offscreen
+            if(c.pos.y > Egyptians.WINDOW_SIZE.y)
             {
-                Dude d = dudeIter.next();
+                iterc.remove();
+            }
+            else 
+            {
+                c.think(delta);
                 
-                //collision test for the cow/dude
-                if(c.pos.y + c.size.y < d.pos.y) break;
-                if(c.pos.x + c.size.x < d.pos.x) break;
-                if(c.pos.x > d.pos.x + d.size.x) break;
-                if(d.pos.y + d.size.y < c.pos.y) break;
-                //if we get here, it's a cowllision
-                cowCollide(c, d);
-                dudeIter.remove();
-            }
-            
+
+                Iterator<Dude> dudeIter = dudes.iterator();
+                while(dudeIter.hasNext())
+                {
+                    Dude d = dudeIter.next();
+
+                    //collision test for the cow/dude
+                    if((c.pos.y + c.size.y > d.pos.y) &&
+                      (c.pos.x + c.size.x > d.pos.x) &&
+                      (c.pos.x < d.pos.x + d.size.x) &&
+                      (d.pos.y + d.size.y > c.pos.y))
+                    {
+                    //if we get here, it's a collission
+                    cowCollide(c, d);
+                    dudeIter.remove();
+                    }
+                }
+            }    
+>>>>>>> c96a59f02477d0fb3f929957be558d8e0cfa3ceb
         }
         
         // TODO place here all the logic which calls the event methods below
@@ -178,7 +187,6 @@ public class GameState extends BasicGameState
             
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
-        // TODO render background/moses etc here
         stage.draw(0, 0);
         moses.draw(880, 200);
         for (int i=0;i<4;i++)
@@ -197,6 +205,9 @@ public class GameState extends BasicGameState
         {
             
         }
+        
+        g.drawString("CowCount: " + cows.size(), 190, 220);
+        g.drawString("DudeCount: " + dudes.size(), 190, 235);
     }
     
     private void createDude() throws SlickException
