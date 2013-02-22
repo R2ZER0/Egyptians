@@ -6,6 +6,7 @@ package egyptians;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -16,7 +17,11 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class StartState extends BasicGameState {
     
+    Image start = null;
+    Image button = null;
+    
     private int stateid = -1;
+    private boolean moveOn = false;
     public StartState(int sid)
     {
         stateid = sid;
@@ -29,16 +34,25 @@ public class StartState extends BasicGameState {
     
     @Override public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
     {
-  
+        this.start = new Image("start.png");
+        this.button = new Image("button.png");
     }
   
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
-        sbg.enterState(Egyptians.GAMESTATE);
+        if (moveOn)
+            sbg.enterState(Egyptians.GAMESTATE);
     }
     
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
-  
+        start.draw(0, 0);
+        button.draw(312, 350);
+    }
+    
+    @Override public void mousePressed(int button, int x, int y)
+    {
+        if (y < 550 && y > 350 && x < 712 && x > 312)
+            moveOn = true;
     }
 }
