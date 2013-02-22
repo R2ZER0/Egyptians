@@ -11,6 +11,7 @@ import java.util.ListIterator;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -36,6 +37,8 @@ public class GameState extends BasicGameState
     Image[] boxes = new Image[4];
     Image thunder1 = null;
     Image thunder2 = null;
+    Animation thunder;
+    Vector2f thunderPos;
     
     final static int POWER_COW = 0;
     final static int POWER_LIGHTNING = 1;
@@ -73,6 +76,9 @@ public class GameState extends BasicGameState
     static final int HAILTIME = 2000;
     static public int hailTimeLeft = 0;   // time in ms remaining of hail
     
+    static final int LIGHTNINGTIME = 500;
+    static public int lightningTimeLeft = 0;
+    
     private int stateid = -1;
     public GameState(int sid)
     {
@@ -95,11 +101,13 @@ public class GameState extends BasicGameState
         this.boxes[3] = boximages[3][0];
         this.thunder1 = new Image("thunder1.png");
         this.thunder2 = new Image("thunder2.png");
+        Image[] thunders = { thunder1, thunder2 };
+        this.thunder = new Animation(thunders, 100, true);
     }
   
     Random randomGenerator = new Random();
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
-    {
+    { 
         if(hailTimeLeft > 0) 
         {
             hailTimeLeft -= delta;
@@ -108,6 +116,9 @@ public class GameState extends BasicGameState
                 Dude.dudeSpeed = Dude.DUDE_SPEED_NORMAL;
             }
         }
+        
+        if(lightningTimeLeft > 0)
+            lightningTimeLeft -= delta;
         
         for(int i = POWER_COW; i <= POWER_DEATH; ++i)
             power_cooldown_time_remainaing[i] -= delta;
@@ -222,6 +233,9 @@ public class GameState extends BasicGameState
         for (int i=0;i<4;i++)
             boxes[i].draw(30+i*130, 30);
         
+        g.drawString("CowCount: " + cows.size(), 190, 220);
+        g.drawString("DudeCount: " + dudes.size(), 190, 235);
+        
         for(int i = POWER_COW; i <= POWER_DEATH; ++i)
         {
             if(!can(i))
@@ -244,9 +258,11 @@ public class GameState extends BasicGameState
         {
             
         }
-                
-        g.drawString("CowCount: " + cows.size(), 190, 220);
-        g.drawString("DudeCount: " + dudes.size(), 190, 235);
+        
+        if(lightningTimeLeft > 0)
+        {
+            thunder.draw(thunderPos.x, thunderPos.y);
+        }
     }
     
     private void createDude() throws SlickException
@@ -268,13 +284,13 @@ public class GameState extends BasicGameState
                 if (x > 30 && x < 130) {
                     doCow();
                     this.boxes[0] = boximages[0][1];
-                } else if (x > 130 && x < 230) {
+                } else if (x > 30+130 && x < 2*130) {
                     doThunder();
                     this.boxes[1] = boximages[1][1];
-                } else if (x > 230 && x < 330) {
+                } else if (x > 30+2*130 && x < 3*130) {
                     doHailstorm();
                     this.boxes[2] = boximages[2][1];
-                } else if (x > 330 && x < 430){ 
+                } else if (x > 30+3*130 && x < 4*130){ 
                     doAngelOfDeath();
                     this.boxes[3] = boximages[3][1];
                 }
@@ -343,6 +359,9 @@ public class GameState extends BasicGameState
         final float LIGHTNING_RADIUS = 120f;
         Vector2f pos = new Vector2f(xpos, ypos);
         Vector2f dpos = new Vector2f();
+        thunderPos = pos.copy();
+        thunderPos.add(new Vector2f(-75, -750+52));
+        lightningTimeLeft = LIGHTNINGTIME;
                 
         for(Iterator<Dude> iter = dudes.iterator(); iter.hasNext(); )
         {
