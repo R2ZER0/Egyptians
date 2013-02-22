@@ -42,7 +42,7 @@ public class Cow extends Entity {
     public Cow(float posx) throws SlickException
     {
         // FIXME - don't create a new image every time (same for dude)
-        super(cowImage, new Vector2f(posx, -100), COW_SIZE);
+        super(cowImage, new Vector2f(posx-(COW_SIZE.x/2), -100), COW_SIZE);
     }
     
 }
