@@ -14,8 +14,8 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class Cow extends Entity {
     
-    public final static Vector2f COW_SIZE = new Vector2f(100, 60);
-    public final static double COW_GRAVITY = 0.4;
+    public final static Vector2f COW_SIZE = new Vector2f(195, 99);
+    public final static double COW_GRAVITY = 0.6;
 
     @Override public void think(int delta)
     {
