@@ -21,13 +21,13 @@ public class Cow extends Entity {
     {
         // cows don't think, stupid!
         // but they do fall down
-        pos.y -= COW_GRAVITY * delta;
+        pos.y += COW_GRAVITY * delta;
     }
     
     public Cow(float posx) throws SlickException
     {
         // FIXME - don't create a new image every time (same for dude)
-        super(new Image("cow.png"), new Vector2f(), COW_SIZE);
+        super(new Image("cow.png"), new Vector2f(posx, -100), COW_SIZE);
     }
     
 }
