@@ -72,7 +72,7 @@ public class GameState extends BasicGameState
     {
         if(hailTimeLeft > 0) hailTimeLeft -= delta;
         
-        final double DUDE_PROBABILITY_KINDA_THING = 0.2;
+        final double DUDE_PROBABILITY_KINDA_THING = 0.4;
         // shall we create a Dude? lets ask probability!
         if(randomGenerator.nextDouble() * delta < DUDE_PROBABILITY_KINDA_THING)
             createDude();
