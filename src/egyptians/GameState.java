@@ -124,7 +124,7 @@ public class GameState extends BasicGameState
   
     Random randomGenerator = new Random();
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
-    {
+    {            
         if(state == STATES.PLACE_COW_STATE)
             gc.setMouseCursor(cowCurser, 12, 12);
         else if(state == STATES.PLACE_THUNDER_STATE)
@@ -202,7 +202,7 @@ public class GameState extends BasicGameState
             }    
         }
         
-        // TODO place here all the logic which calls the event methods below
+        if(jews < 0) sbg.enterState(Egyptians.FINISHSTATE);
             
     }
     

@@ -17,7 +17,10 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class FinishState extends BasicGameState {
     
+    boolean goBack = false;
     private int stateid;
+    Image bg;
+    
     public FinishState(int sid)
     {
         stateid = sid;
@@ -30,21 +33,22 @@ public class FinishState extends BasicGameState {
     
     @Override public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
     {
-        
+        goBack = false;
+        bg = new Image("death.png");
     }
   
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
-
+        if(goBack) sbg.enterState(Egyptians.STARTSTATE);
     }
     
     @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
-
+        bg.draw();
     }
     
     @Override public void mousePressed(int button, int x, int y)
     {
-
+        goBack = true;
     }
 }
