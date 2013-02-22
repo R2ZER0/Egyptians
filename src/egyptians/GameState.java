@@ -48,7 +48,7 @@ public class GameState extends BasicGameState
     final static int POWER_LIGHTNING = 1;
     final static int POWER_HAILSTORM = 2;
     final static int POWER_DEATH = 3;
-    int[] power_cooldown_time = { 1000, 3000, 5000, 25000 };
+    int[] power_cooldown_time = { 2000, 3000, 5000, 25000 };
     int[] power_cooldown_time_remainaing = { 0, 0, 0, 0 };
     
     double DUDE_PROBABILITY_KINDA_THING = 0.7;
