@@ -118,15 +118,21 @@ public class GameState extends BasicGameState
         dudes = new LinkedList<>();
     }
   
+    STATES oldState = STATES.NORMAL_STATE;
     Random randomGenerator = new Random();
     @Override public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {            
-        if(state == STATES.PLACE_COW_STATE)
-            gc.setMouseCursor(cowCurser, 12, 12);
-        else if(state == STATES.PLACE_THUNDER_STATE)
-            gc.setMouseCursor(lightningCurser, 1, 1);
-        else
-            gc.setDefaultMouseCursor();
+        if(oldState != state)
+        {
+            if(state == STATES.PLACE_COW_STATE)
+                gc.setMouseCursor(cowCurser, 12, 12);
+            else if(state == STATES.PLACE_THUNDER_STATE)
+                gc.setMouseCursor(lightningCurser, 1, 1);
+            else
+                gc.setDefaultMouseCursor();
+            
+            oldState = state;
+        }
             
         if(hailTimeLeft > 0) 
         {
@@ -254,16 +260,21 @@ public class GameState extends BasicGameState
             this.boxes[3] = boximages[3][0];
     }
             
-    @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
+    @Override public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
     {
         stage.draw(0, 0);
         moses.draw(880, 200);
         for (int i=0;i<4;i++)
             boxes[i].draw(30+i*130, 30);
         
-        g.setColor(Color.red);
-        g.drawString("Score: " + score, 190, 250);
-        g.drawString("Jews: " + jews, 190, 265);
+        try {
+            g.setColor(Color.red);
+            g.drawString("Score: " + score, 190, 250);
+            g.drawString("Jews: " + jews, 190, 265);
+        } catch(org.lwjgl.opengl.OpenGLException ex)
+        {
+            Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         for(int i = POWER_COW; i <= POWER_DEATH; ++i)
         {
