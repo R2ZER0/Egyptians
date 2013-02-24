@@ -51,7 +51,7 @@ public class GameState extends BasicGameState
     int[] power_cooldown_time = { 2000, 3000, 5000, 25000 };
     int[] power_cooldown_time_remainaing = { 0, 0, 0, 0 };
     
-    double DUDE_PROBABILITY_KINDA_THING = 0.7;
+    public static double DUDE_PROBABILITY_KINDA_THING = 0.7;
     
     static Image[][] boximages;
     
@@ -112,7 +112,6 @@ public class GameState extends BasicGameState
         Image[] thunders = { thunder1, thunder2 };
         this.thunder = new Animation(thunders, 100, true);
         this.angel = new Image("angel.png");
-        score = 0;
         jews = 100;
         cows = new LinkedList<>();
         dudes = new LinkedList<>();
@@ -262,8 +261,8 @@ public class GameState extends BasicGameState
             boxes[i].draw(30+i*130, 30);
         
         g.setColor(Color.red);
-        g.drawString("Score: " + score, 190, 250);
-        g.drawString("Jews: " + jews, 190, 265);
+        g.drawString("Score: " + score, 203, 200);
+        g.drawString("Jews: " + jews, 200, 215);
         
         for(int i = POWER_COW; i <= POWER_DEATH; ++i)
         {

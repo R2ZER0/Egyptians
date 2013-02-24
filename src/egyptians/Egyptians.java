@@ -2,6 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/* Highscores
+ * 1.   Lewis Barker    67750
+ */
+
 package egyptians;
 
 import org.newdawn.slick.AppGameContainer;

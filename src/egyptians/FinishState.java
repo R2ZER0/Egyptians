@@ -56,6 +56,8 @@ public class FinishState extends BasicGameState {
     
     @Override public void mousePressed(int button, int x, int y)
     {
+        GameState.score = 0;
+        GameState.DUDE_PROBABILITY_KINDA_THING = 0.7;
         goBack = true;
     }
 }

@@ -83,5 +83,5 @@ public class Dude extends Entity {
         //move them forwards a bit
         this.pos.x += delta * dudeSpeed * speedmod;
     }
-    
+   
 }
