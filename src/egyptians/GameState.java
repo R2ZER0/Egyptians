@@ -265,10 +265,12 @@ public class GameState extends BasicGameState
         moses.draw(880, 200);
         for (int i=0;i<4;i++)
             boxes[i].draw(30+i*130, 30);
+
+        
         try {
             g.setColor(Color.red);
-            g.drawString("Score: " + score, 730, 55);
-            g.drawString("Jews: " + jews, 730, 85);
+            g.drawString("Score: " + score, 190, 250);
+            g.drawString("Jews: " + jews, 190, 265);
         } catch(org.lwjgl.opengl.OpenGLException ex)
         {
             Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
