@@ -269,8 +269,8 @@ public class GameState extends BasicGameState
         
         try {
             g.setColor(Color.red);
-            g.drawString("Score: " + score, 190, 250);
-            g.drawString("Jews: " + jews, 190, 265);
+            g.drawString("Score: " + score, 730, 55);
+            g.drawString("Jews: " + jews, 730, 85);
         } catch(org.lwjgl.opengl.OpenGLException ex)
         {
             Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
