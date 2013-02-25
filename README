@@ -1,0 +1,5 @@
+Egyptians game for Edinburgh University GameJam Feb 2013.
+
+To build, you need netbeans, the Slick2d library, and to place your platform's lwjgl natives in ~/native/.
+
+Created by Rikki Guy, Lewis Barker, Lewis Brown.
