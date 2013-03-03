@@ -54,10 +54,12 @@ public class FinishState extends BasicGameState {
         g.drawString("Final Score: " + GameState.score, 150, 400);
     }
     
-    @Override public void mousePressed(int button, int x, int y)
+    @Override public void keyPressed(int key, char c)
     {
-        GameState.score = 0;
-        GameState.DUDE_PROBABILITY_KINDA_THING = 0.7;
-        goBack = true;
+        if (key == 28) {
+            GameState.score = 0;
+            GameState.DUDE_PROBABILITY_KINDA_THING = 0.7;
+            goBack = true;
+        }
     }
 }
